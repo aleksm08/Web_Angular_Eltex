@@ -4,151 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Блог</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Шапка сайта с навигацией -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="blog.html">Блог</a></li>
-            </ul>
-        </nav>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Именная-страница</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="index.html">Обо мне</a></li>
+                    <li><a href="blog.html" class="active">Блог</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
         <!-- Блок со статьями -->
-        <section>
-            <h1>Статьи</h1>
-
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
+        <section class="blog-hero">
+            <div class="container">
+                <h1>Статьи</h1>
                 <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
+                    Здесь вы найдёте туториалы, кейсы из реальной практики и вдохновляющие истории
+                    о веб-разработке и технологиях.
                 </p>
-            </article>
+            </div>
+        </section>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+        <!-- Главная (featured) статья — первая статья выделена отдельно по дизайну Figma -->
+        <section class="blog-featured">
+            <div class="container">
+                <article class="blog-featured-card">
+                    <div class="blog-featured-image">
+                        <div class="img-placeholder">
+                            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        </div>
+                    </div>
+                    <div class="blog-featured-text">
+                        <h2>Как создать адаптивный дизайн за 30 минут</h2>
+                        <p>
+                            В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
+                            которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
+                            гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
+                        </p>
+                        <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+        <!-- Сетка карточек статей -->
+        <section class="blog-grid">
+            <div class="container">
+                <div class="blog-cards">
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            <div class="img-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            </div>
+                        </div>
+                        <div class="blog-card-body">
+                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
+                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
+                        </div>
+                    </article>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            <div class="img-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            </div>
+                        </div>
+                        <div class="blog-card-body">
+                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
+                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
+                        </div>
+                    </article>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            <div class="img-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            </div>
+                        </div>
+                        <div class="blog-card-body">
+                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
+                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
+                        </div>
+                    </article>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            <div class="img-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            </div>
+                        </div>
+                        <div class="blog-card-body">
+                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
+                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
+                        </div>
+                    </article>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            <div class="img-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            </div>
+                        </div>
+                        <div class="blog-card-body">
+                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
+                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
+                        </div>
+                    </article>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            <div class="img-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            </div>
+                        </div>
+                        <div class="blog-card-body">
+                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
+                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
+                        </div>
+                    </article>
 
-            <article>
-                <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                <p>
-                    В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                    которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                    гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                </p>
-            </article>
+                </div>
+
+                <div class="blog-next">
+                    <a href="#">Далее</a>
+                </div>
+            </div>
         </section>
 
         <!-- Форма создания статьи -->
-        <section>
-            <h2>Создать статью</h2>
-            <label for="article-title">Заголовок</label><br>
-            <input type="text" id="article-title" name="title"><br><br>
+        <section class="add-article-section">
+            <div class="container">
+                <h2>Создать статью</h2>
+                <div class="add-article-form">
+                    <div class="form-group">
+                        <label for="article-title">Заголовок</label>
+                        <input type="text" id="article-title" name="title" placeholder="Заголовок статьи">
+                    </div>
 
-            <label for="article-text">Текст статьи</label><br>
-            <textarea id="article-text" name="text" rows="5" cols="40"></textarea><br><br>
+                    <div class="form-group">
+                        <label for="article-text">Текст статьи</label>
+                        <textarea id="article-text" name="text" rows="5" placeholder="Текст статьи"></textarea>
+                    </div>
 
-            <button type="button">Добавить</button>
+                    <div class="form-buttons">
+                        <button type="button" class="btn-add">Добавить</button>
+                        <button type="button" class="btn-cancel">Отмена</button>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <!-- Футер с контактами -->
-    <footer>
-        <h2>Контакты</h2>
-        <address>
-            <p>Email: <a href="mailto:alex@creativeblog.ru">alex@creativeblog.ru</a></p>
-            <p>Телефон: <a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
-        </address>
-        <p><strong>Социальные сети:</strong></p>
-        <p>
-            <a href="#">Instagram</a> |
-            <a href="#">Twitter</a> |
-            <a href="#">LinkedIn</a> |
-            <a href="#">GitHub</a>
-        </p>
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-left">
+                <h2>Давайте работать вместе!</h2>
+                <address class="footer-contacts">
+                    <p>Email: <a href="mailto:alex@creativeblog.ru">alex@creativeblog.ru</a></p>
+                    <p>Телефон: <a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                </address>
+                <div class="footer-socials">
+                    <a href="#">VK</a>
+                    <a href="#">TG</a>
+                    <a href="#">GH</a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-form">
+                    <div class="form-group">
+                        <label for="blog-email">Email</label>
+                        <input type="email" id="blog-email" placeholder="Ваш email">
+                    </div>
+                    <div class="form-group">
+                        <label for="blog-message">Сообщение</label>
+                        <textarea id="blog-message" rows="4" placeholder="Опишите ваш проект"></textarea>
+                    </div>
+                    <button type="button" class="btn-submit">Отправить</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Brand, Inc</p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
