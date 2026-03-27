@@ -897,9 +897,7 @@ p {
    ФОРМА ДОБАВЛЕНИЯ СТАТЬИ
    =========================== */
 
-.add-article-section {
-    padding: 40px 0 60px;
-}
+/* Базовые стили формы (анимация управления в секции ниже) */
 
 .add-article-section h2 {
     font-size: 24px;
@@ -991,4 +989,154 @@ p {
     height: 80px;
     fill: var(--color-text-light);
     opacity: 0.5;
+}
+
+/* ===========================
+   АДМИН-ПАНЕЛЬ (боковая)
+   =========================== */
+
+.admin-panel {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 100;
+}
+
+.admin-btn {
+    width: 48px;
+    height: 56px;
+    background-color: var(--color-text-primary);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.admin-btn:first-child {
+    border-radius: 12px 0 0 0;
+}
+
+.admin-btn:last-child {
+    border-radius: 0 0 0 12px;
+}
+
+.admin-btn:hover {
+    background-color: var(--color-accent-green);
+}
+
+.admin-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ===========================
+   АНИМАЦИЯ ФОРМЫ (показ/скрытие)
+   =========================== */
+
+.add-article-section {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+    padding: 0;
+}
+
+.add-article-section[hidden] {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.add-article-section.visible {
+    max-height: 600px;
+    opacity: 1;
+    padding: 40px 0 60px;
+    pointer-events: auto;
+}
+
+/* ===========================
+   ДИАЛОГ СТАТИСТИКИ
+   =========================== */
+
+.stats-dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 520px;
+    width: 90%;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Backdrop затемнение */
+.stats-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.stats-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.stats-dialog-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.stats-dialog-close {
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.stats-dialog-close:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-light);
+}
+
+.stats-dialog-body {
+    display: flex;
+    gap: 16px;
+}
+
+.stats-card {
+    flex: 1;
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stats-label {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+}
+
+.stats-value {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--color-text-primary);
 }

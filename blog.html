@@ -13,9 +13,9 @@
             <a href="index.html" class="logo">Именная-страница</a>
             <nav>
                 <ul class="nav-list">
-                    <li><a href="index.html">Обо мне</a></li>
+                    <li><a href="index.html" class="active">Обо мне</a></li>
                     <li><a href="blog.html" class="active">Блог</a></li>
-                    <li><a href="#contacts">Контакты</a></li>
+                    <li><a href="#contacts" class="active">Контакты</a></li>
                 </ul>
             </nav>
         </div>
@@ -58,7 +58,7 @@
         <!-- Сетка карточек статей -->
         <section class="blog-grid">
             <div class="container">
-                <div class="blog-cards">
+                <div class="blog-cards" id="blog-cards">
 
                     <article class="blog-card">
                         <div class="blog-card-image">
@@ -140,29 +140,83 @@
             </div>
         </section>
 
-        <!-- Форма создания статьи -->
-        <section class="add-article-section">
+        <!-- Форма создания статьи (скрыта по умолчанию, пункт 5) -->
+        <section class="add-article-section" id="add-article-section" hidden>
             <div class="container">
-                <h2>Создать статью</h2>
+                <h2>Добавить статью</h2>
                 <div class="add-article-form">
                     <div class="form-group">
                         <label for="article-title">Заголовок</label>
-                        <input type="text" id="article-title" name="title" placeholder="Заголовок статьи">
+                        <input type="text" id="article-title" name="title" placeholder="Заголовок статьи" required>
                     </div>
 
                     <div class="form-group">
                         <label for="article-text">Текст статьи</label>
-                        <textarea id="article-text" name="text" rows="5" placeholder="Текст статьи"></textarea>
+                        <textarea id="article-text" name="text" rows="5" placeholder="Текст статьи" required></textarea>
                     </div>
 
                     <div class="form-buttons">
-                        <button type="button" class="btn-add">Добавить</button>
-                        <button type="button" class="btn-cancel">Отмена</button>
+                        <button type="button" class="btn-add" id="btn-add-article">Добавить</button>
+                        <button type="button" class="btn-cancel" id="btn-cancel-article">Отмена</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Админ-панель (боковая), пункт 2 -->
+    <aside class="admin-panel" id="admin-panel">
+        <button class="admin-btn" id="btn-create-article" title="Создать статью">
+            <!-- Иконка документа с плюсом -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+        </button>
+        <button class="admin-btn" id="btn-show-stats" title="Показать статистику">
+            <!-- Иконка статистики -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+        </button>
+    </aside>
+
+    <!-- Диалог статистики страницы (пункт 4) -->
+    <dialog class="stats-dialog" id="stats-dialog">
+        <div class="stats-dialog-header">
+            <h2>Статистика страницы</h2>
+            <button class="stats-dialog-close" id="stats-dialog-close">&times;</button>
+        </div>
+        <div class="stats-dialog-body">
+            <div class="stats-card">
+                <span class="stats-label">Всего статей:</span>
+                <span class="stats-value" id="stats-articles-count">0</span>
+            </div>
+            <div class="stats-card">
+                <span class="stats-label">Комментарии:</span>
+                <span class="stats-value" id="stats-comments-count">0</span>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Шаблон карточки статьи (пункт 6) -->
+    <template id="blog-card-template">
+        <article class="blog-card">
+            <div class="blog-card-image">
+                <div class="img-placeholder">
+                    <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                </div>
+            </div>
+            <div class="blog-card-body">
+                <h4></h4>
+                <time></time>
+            </div>
+        </article>
+    </template>
 
     <!-- Футер с контактами -->
     <footer class="footer" id="contacts">
@@ -199,5 +253,8 @@
             </div>
         </div>
     </footer>
+
+    <!-- Подключение JS (пункт 3) -->
+    <script src="script.js"></script>
 </body>
 </html>
