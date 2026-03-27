@@ -16,8 +16,12 @@ const statsArticlesCount = document.getElementById('stats-articles-count');
 const statsCommentsCount = document.getElementById('stats-comments-count');
 const blogCardTemplate = document.getElementById('blog-card-template');
 
+// Поля формы добавления
+const inputTitle = document.getElementById('article-title');
+const inputText = document.getElementById('article-text');
+
 // ===========================
-// Пункт 4: Подсчёт статей
+// СТАТИСТИКА
 // ===========================
 
 /**
@@ -39,10 +43,6 @@ function updateStats() {
     statsCommentsCount.textContent = 0;
 }
 
-// ===========================
-// Пункт 4: Диалог статистики
-// ===========================
-
 // Открытие диалога по кнопке "Показать статистику"
 btnShowStats.addEventListener('click', function () {
     updateStats();
@@ -63,7 +63,7 @@ statsDialog.addEventListener('click', function (event) {
 });
 
 // ===========================
-// Пункт 5: Показ/скрытие формы
+// УПРАВЛЕНИЕ ФОРМОЙ (ПОКАЗ/СКРЫТИЕ)
 // ===========================
 
 /**
@@ -91,18 +91,25 @@ function hideArticleForm() {
     });
 }
 
+// Очистка полей формы (Пункт 1 и 2 задания)
+function resetForm() {
+    inputTitle.value = '';
+    inputText.value = '';
+}
+
 // Показать форму по кнопке "Создать статью"
 btnCreateArticle.addEventListener('click', function () {
     showArticleForm();
 });
 
-// Скрыть форму по кнопке "Отмена"
-btnCancelArticle.addEventListener('click', function () {
+// Обработчик кнопки "Отмена" (Пункт 2 задания)
+btnCancelArticle.addEventListener('click', () => {
+    resetForm();
     hideArticleForm();
 });
 
 // ===========================
-// Пункт 6: Добавление поста через template
+// ДОБАВЛЕНИЕ СТАТЬИ (Пункт 1 задания)
 // ===========================
 
 /**
@@ -147,30 +154,44 @@ function addPost(title, dateStr, datetime) {
     timeEl.setAttribute('datetime', datetime);
 
     // Добавляем карточку в сетку
-    blogCards.appendChild(clone);
+    blogCards.prepend(clone);
+    updateStats();
 }
 
-// Mock-данные для добавления поста по кнопке "Добавить"
-const mockPosts = [
-    'Основы JavaScript для начинающих',
-    'Что нового в CSS 2025',
-    'Как настроить Git для командной работы',
-    'Angular: первые шаги',
-    'Секреты продуктивной разработки'
-];
-
-let mockIndex = 0;
-
 // Добавление поста по кнопке "Добавить" (с mock-данными)
-btnAddArticle.addEventListener('click', function () {
+btnAddArticle.addEventListener('click', () => {
+    const title = inputTitle.value.trim();
+    const text = inputText.value.trim();
+
+    if (title === '' || text === '') {
+        alert('Пожалуйста, введите заголовок и текст статьи');
+        return;
+    }
+
     const now = new Date();
-    const title = mockPosts[mockIndex % mockPosts.length];
-    const dateStr = formatDate(now);
-    const datetime = formatDatetime(now);
+    addPost(title, formatDate(now), formatDatetime(now));
 
-    addPost(title, dateStr, datetime);
-    mockIndex++;
-
-    // Скрываем форму после добавления
+    // Сброс и скрытие (Пункт 1)
+    resetForm();
     hideArticleForm();
+});
+
+// ===========================
+// УДАЛЕНИЕ СТАТЬИ (Пункт 3 задания)
+// ===========================
+
+// Используем делегирование: вешаем один обработчик на весь контейнер
+blogCards.addEventListener('click', (event) => {
+    // Проверяем, нажали ли мы на кнопку удаления (крестик)
+    if (event.target.classList.contains('btn-delete')) {
+        // Находим ближайшую карточку к этому крестику
+        const card = event.target.closest('.blog-card');
+        
+        if (card) {
+            // Удаляем карточку из DOM
+            card.remove();
+            // Обновляем статистику после удаления
+            updateStats();
+        }
+    }
 });
