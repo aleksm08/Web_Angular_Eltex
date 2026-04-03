@@ -7,8 +7,10 @@
 const blogCards = document.getElementById('blog-cards');
 const blogEmpty = document.getElementById('blog-empty');
 const blogNext = document.getElementById('blog-next');
+const loader = document.getElementById('loader');
 const addArticleSection = document.getElementById('add-article-section');
 const addArticleForm = document.getElementById('add-article-form');
+const formFieldset = document.getElementById('form-fieldset');
 const btnCreateArticle = document.getElementById('btn-create-article');
 const btnCancelArticle = document.getElementById('btn-cancel-article');
 const btnShowStats = document.getElementById('btn-show-stats');
@@ -21,9 +23,56 @@ const blogCardTemplate = document.getElementById('blog-card-template');
 // Ключ для localStorage
 const STORAGE_KEY = 'blog_articles';
 
-// // Поля формы добавления
-// const inputTitle = document.getElementById('article-title');
-// const inputText = document.getElementById('article-text');
+// ===========================
+// ЛОАДЕР (ДЗ 8)
+// ===========================
+
+/**
+ * Показывает лоадер и скрывает контейнер статей
+ */
+function showLoader() {
+    loader.hidden = false;
+    blogCards.hidden = true;
+    blogEmpty.hidden = true;
+    blogNext.hidden = true;
+}
+
+/**
+ * Скрывает лоадер и показывает контейнер статей
+ */
+function hideLoader() {
+    loader.hidden = true;
+    blogCards.hidden = false;
+}
+
+/**
+ * Имитация задержки загрузки (ДЗ 8)
+ * @param {number} ms — задержка в миллисекундах
+ * @returns {Promise}
+ */
+function delay(ms) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, ms);
+    });
+}
+
+// ===========================
+// БЛОКИРОВКА ФОРМЫ (ДЗ 8)
+// ===========================
+
+/**
+ * Блокирует все поля и кнопки формы через fieldset
+ */
+function disableForm() {
+    formFieldset.disabled = true;
+}
+
+/**
+ * Разблокирует все поля и кнопки формы
+ */
+function enableForm() {
+    formFieldset.disabled = false;
+}
 
 // ===========================
 // РАБОТА С localStorage (ДЗ 7)
@@ -153,7 +202,7 @@ function hideArticleForm() {
 }
 
 /**
- * Доработка ДЗ6: используем form.reset() для очистки формы
+ * Очистка формы через form.reset()
  */
 function resetForm() {
     addArticleForm.reset();
@@ -249,11 +298,11 @@ function renderAllArticles(articles) {
 }
 
 // ===========================
-// ДОБАВЛЕНИЕ СТАТЬИ (через форму)
+// ДОБАВЛЕНИЕ СТАТЬИ (через форму) с имитацией загрузки (ДЗ 8)
 // ===========================
 
-// Доработка ДЗ5: используем submit событие формы
-addArticleForm.addEventListener('submit', function (event) {
+// Используем submit событие формы
+addArticleForm.addEventListener('submit', async function (event) {
     // Предотвращаем стандартную отправку формы
     event.preventDefault();
 
@@ -264,6 +313,9 @@ addArticleForm.addEventListener('submit', function (event) {
         alert('Пожалуйста, введите заголовок и текст статьи');
         return;
     }
+
+    // Блокируем форму, чтобы нельзя было повторно нажать или изменить данные (ДЗ 8)
+    disableForm();
 
     const now = new Date();
 
@@ -276,7 +328,10 @@ addArticleForm.addEventListener('submit', function (event) {
         datetime: formatDatetime(now)
     };
 
-    // Сохраняем в localStorage (ДЗ 7)
+    // Имитация задержки сохранения (ДЗ 8)
+    await delay(800);
+
+    // Сохраняем в localStorage
     addArticleToStorage(article);
 
     // Рендерим карточку на странице
@@ -285,6 +340,7 @@ addArticleForm.addEventListener('submit', function (event) {
     // Обновляем состояние
     updateEmptyState();
     resetForm();
+    enableForm();
     hideArticleForm();
 });
 
@@ -299,26 +355,36 @@ blogCards.addEventListener('click', function (event) {
 
         if (card) {
             const id = card.dataset.id;
-
-            // Удаляем из localStorage
-            removeArticleFromStorage(id);
-
-            // Удаляем из DOM
-            card.remove();
-
-            // Обновляем состояние
-            updateEmptyState();
+            removeArticleFromStorage(id); // Удаляем из localStorage
+            card.remove();       // Удаляем из DOM
+            updateEmptyState();  // Обновляем состояние
             updateStats();
         }
     }
 });
 
 // ===========================
-// ИНИЦИАЛИЗАЦИЯ: загрузка статей из localStorage (ДЗ 7)
+// ИНИЦИАЛИЗАЦИЯ: загрузка статей с лоадером (ДЗ 8)
 // ===========================
 
-function init() {
+/**
+ * Асинхронная инициализация: показывает лоадер,
+ * имитирует задержку загрузки, затем рендерит статьи
+ */
+async function init() {
+    // Показываем лоадер
+    showLoader();
+
+    // Имитация загрузки данных (например, запрос к серверу)
+    await delay(1500);
+
+    // Загружаем данные из localStorage
     const articles = getArticlesFromStorage();
+
+    // Скрываем лоадер
+    hideLoader();
+
+    // Отрисовываем статьи
     renderAllArticles(articles);
 }
 
