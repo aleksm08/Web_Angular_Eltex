@@ -33,124 +33,27 @@
             </div>
         </section>
 
-        <!-- Главная (featured) статья — первая статья выделена отдельно по дизайну Figma -->
-        <section class="blog-featured">
-            <div class="container">
-                <article class="blog-featured-card">
-                    <div class="blog-featured-image">
-                        <div class="img-placeholder">
-                            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                        </div>
-                    </div>
-                    <div class="blog-featured-text">
-                        <h2>Как создать адаптивный дизайн за 30 минут</h2>
-                        <p>
-                            В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов,
-                            которые одинаково хорошо выглядят на всех устройствах. Вы узнаете о медиа-запросах,
-                            гибких сетках и практических примерах кода, которые можно использовать прямо сейчас.
-                        </p>
-                        <p><time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time></p>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Сетка карточек статей -->
+        <!-- Сетка карточек статей (первая карточка — featured через CSS :first-child) -->
         <section class="blog-grid">
             <div class="container">
                 <div class="blog-cards" id="blog-cards">
-
-                    <article class="blog-card">
-                        <button class="btn-delete" title="Удалить статью">&times;</button> 
-                        <div class="blog-card-image">
-                            <div class="img-placeholder">
-                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
-                        </div>
-                        <div class="blog-card-body">
-                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
-                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <button class="btn-delete" title="Удалить статью">&times;</button> 
-                        <div class="blog-card-image">
-                            <div class="img-placeholder">
-                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
-                        </div>
-                        <div class="blog-card-body">
-                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
-                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <button class="btn-delete" title="Удалить статью">&times;</button> 
-                        <div class="blog-card-image">
-                            <div class="img-placeholder">
-                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
-                        </div>
-                        <div class="blog-card-body">
-                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
-                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <button class="btn-delete" title="Удалить статью">&times;</button> 
-                        <div class="blog-card-image">
-                            <div class="img-placeholder">
-                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
-                        </div>
-                        <div class="blog-card-body">
-                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
-                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <button class="btn-delete" title="Удалить статью">&times;</button> 
-                        <div class="blog-card-image">
-                            <div class="img-placeholder">
-                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
-                        </div>
-                        <div class="blog-card-body">
-                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
-                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <button class="btn-delete" title="Удалить статью">&times;</button> 
-                        <div class="blog-card-image">
-                            <div class="img-placeholder">
-                                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
-                        </div>
-                        <div class="blog-card-body">
-                            <h4>Как создать адаптивный дизайн за 30 минут</h4>
-                            <time datetime="2024-12-15">Опубликовано: 15 декабря 2024</time>
-                        </div>
-                    </article>
-
+                    <!-- Карточки загружаются из localStorage через JS -->
                 </div>
 
-                <div class="blog-next">
+                <!-- Заглушка "Нет статей" (отображается когда статей нет) -->
+                <p class="blog-empty" id="blog-empty">Нет статей</p>
+
+                <div class="blog-next" id="blog-next" hidden>
                     <a href="#">Далее</a>
                 </div>
             </div>
         </section>
 
-        <!-- Форма создания статьи (скрыта по умолчанию, пункт 5) -->
+        <!-- Форма создания статьи (скрыта по умолчанию) -->
         <section class="add-article-section" id="add-article-section" hidden>
             <div class="container">
                 <h2>Добавить статью</h2>
-                <div class="add-article-form">
+                <form class="add-article-form" id="add-article-form">
                     <div class="form-group">
                         <label for="article-title">Заголовок</label>
                         <input type="text" id="article-title" name="title" placeholder="Заголовок статьи" required>
@@ -162,18 +65,17 @@
                     </div>
 
                     <div class="form-buttons">
-                        <button type="button" class="btn-add" id="btn-add-article">Добавить</button>
+                        <button type="submit" class="btn-add" id="btn-add-article">Добавить</button>
                         <button type="button" class="btn-cancel" id="btn-cancel-article">Отмена</button>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
     </main>
 
-    <!-- Админ-панель (боковая), пункт 2 -->
+    <!-- Админ-панель (боковая) -->
     <aside class="admin-panel" id="admin-panel">
         <button class="admin-btn" id="btn-create-article" title="Создать статью">
-            <!-- Иконка документа с плюсом -->
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
@@ -182,7 +84,6 @@
             </svg>
         </button>
         <button class="admin-btn" id="btn-show-stats" title="Показать статистику">
-            <!-- Иконка статистики -->
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="20" x2="18" y2="10"/>
                 <line x1="12" y1="20" x2="12" y2="4"/>
@@ -191,7 +92,7 @@
         </button>
     </aside>
 
-    <!-- Диалог статистики страницы (пункт 4) -->
+    <!-- Диалог статистики страницы -->
     <dialog class="stats-dialog" id="stats-dialog">
         <div class="stats-dialog-header">
             <h2>Статистика страницы</h2>
@@ -209,10 +110,9 @@
         </div>
     </dialog>
 
-    <!-- Шаблон карточки статьи (пункт 6) -->
+    <!-- Шаблон карточки статьи -->
     <template id="blog-card-template">
         <article class="blog-card">
-            <!-- Добавляем кнопку удаления -->
             <button class="btn-delete" title="Удалить статью">&times;</button>
             <div class="blog-card-image">
                 <div class="img-placeholder">
@@ -221,6 +121,7 @@
             </div>
             <div class="blog-card-body">
                 <h4></h4>
+                <p class="blog-card-text"></p>
                 <time></time>
             </div>
         </article>
@@ -262,7 +163,7 @@
         </div>
     </footer>
 
-    <!-- Подключение JS (пункт 3) -->
+    <!-- Подключение JS -->
     <script src="script.js"></script>
 </body>
 </html>

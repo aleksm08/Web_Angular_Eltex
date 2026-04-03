@@ -713,50 +713,8 @@ p {
     max-width: 500px;
 }
 
-/* Featured (главная) статья блога */
-.blog-featured {
-    padding: 0 0 60px;
-}
-
-.blog-featured-card {
-    display: flex;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-}
-
-.blog-featured-image {
-    flex: 1.2;
-    background-color: var(--color-bg-light);
-    min-height: 320px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.blog-featured-text {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.blog-featured-text h2 {
-    font-size: 28px;
-    margin-bottom: 16px;
-}
-
-.blog-featured-text p {
-    color: var(--color-text-secondary);
-    font-size: 15px;
-    margin-bottom: 12px;
-}
-
-.blog-featured-text time {
-    font-size: 14px;
-    color: var(--color-text-muted);
-}
+/* Доработка ДЗ6: секция blog-featured убрана, 
+   первая карточка стилизуется через :first-child в единой сетке */
 
 /* Сетка карточек блога */
 .blog-grid {
@@ -767,6 +725,58 @@ p {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+}
+
+/* Первая карточка — featured: занимает всю ширину, горизонтальный layout */
+.blog-card:first-child {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+}
+
+.blog-card:first-child .blog-card-image {
+    flex: 1.2;
+    min-height: 320px;
+    height: auto;
+}
+
+.blog-card:first-child .blog-card-body {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-card:first-child .blog-card-body h4 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* Текст статьи виден только в featured карточке */
+.blog-card-text {
+    display: none;
+}
+
+.blog-card:first-child .blog-card-text {
+    display: block;
+    color: var(--color-text-secondary);
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+/* Состояние "Нет статей" (ДЗ 7) */
+.blog-empty {
+    text-align: center;
+    padding: 120px 0;
+    font-size: 18px;
+    color: var(--color-text-muted);
+}
+
+.blog-empty[hidden] {
+    display: none;
 }
 
 .blog-card {
@@ -837,11 +847,12 @@ p {
         grid-template-columns: 1fr;
     }
 
-    .blog-featured-card {
+    /* Featured-карточка (первая) в мобильной версии — вертикальный layout */
+    .blog-card:first-child {
         flex-direction: column;
     }
 
-    .blog-featured-image {
+    .blog-card:first-child .blog-card-image {
         min-height: 200px;
     }
 
