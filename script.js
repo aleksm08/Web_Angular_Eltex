@@ -5,10 +5,12 @@
 // ===========================
 
 const blogCards = document.getElementById('blog-cards');
+const blogEmpty = document.getElementById('blog-empty');
+const blogNext = document.getElementById('blog-next');
 const addArticleSection = document.getElementById('add-article-section');
+const addArticleForm = document.getElementById('add-article-form');
 const btnCreateArticle = document.getElementById('btn-create-article');
 const btnCancelArticle = document.getElementById('btn-cancel-article');
-const btnAddArticle = document.getElementById('btn-add-article');
 const btnShowStats = document.getElementById('btn-show-stats');
 const statsDialog = document.getElementById('stats-dialog');
 const statsDialogClose = document.getElementById('stats-dialog-close');
@@ -16,9 +18,71 @@ const statsArticlesCount = document.getElementById('stats-articles-count');
 const statsCommentsCount = document.getElementById('stats-comments-count');
 const blogCardTemplate = document.getElementById('blog-card-template');
 
-// Поля формы добавления
-const inputTitle = document.getElementById('article-title');
-const inputText = document.getElementById('article-text');
+// Ключ для localStorage
+const STORAGE_KEY = 'blog_articles';
+
+// // Поля формы добавления
+// const inputTitle = document.getElementById('article-title');
+// const inputText = document.getElementById('article-text');
+
+// ===========================
+// РАБОТА С localStorage (ДЗ 7)
+// ===========================
+
+/**
+ * Получает массив статей из localStorage
+ * @returns {Array} массив объектов статей
+ */
+function getArticlesFromStorage() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) {
+        return JSON.parse(data);
+    }
+    return [];
+}
+
+/**
+ * Сохраняет массив статей в localStorage
+ * @param {Array} articles — массив объектов статей
+ */
+function saveArticlesToStorage(articles) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+}
+
+/**
+ * Добавляет одну статью в localStorage
+ * @param {Object} article — объект { id, title, text, date, datetime }
+ */
+function addArticleToStorage(article) {
+    const articles = getArticlesFromStorage();
+    articles.push(article);
+    saveArticlesToStorage(articles);
+}
+
+/**
+ * Удаляет статью из localStorage по id
+ * @param {string} id — уникальный идентификатор статьи
+ */
+function removeArticleFromStorage(id) {
+    const articles = getArticlesFromStorage();
+    const filtered = articles.filter(function (article) {
+        return article.id !== id;
+    });
+    saveArticlesToStorage(filtered);
+}
+
+// ===========================
+// УПРАВЛЕНИЕ ПУСТЫМ СОСТОЯНИЕМ (ДЗ 7)
+// ===========================
+
+/**
+ * Обновляет видимость заглушки "Нет статей" и кнопки "Далее"
+ */
+function updateEmptyState() {
+    const hasArticles = blogCards.querySelectorAll('.blog-card').length > 0;
+    blogEmpty.hidden = hasArticles;
+    blogNext.hidden = !hasArticles;
+}
 
 // ===========================
 // СТАТИСТИКА
@@ -26,13 +90,10 @@ const inputText = document.getElementById('article-text');
 
 /**
  * Подсчитывает количество статей на странице
- * (карточки в сетке + featured-статья)
  * @returns {number} количество статей
  */
 function countArticles() {
-    const gridArticles = blogCards.querySelectorAll('.blog-card');
-    const featuredArticles = document.querySelectorAll('.blog-featured-card');
-    return gridArticles.length + featuredArticles.length;
+    return blogCards.querySelectorAll('.blog-card').length;
 }
 
 /**
@@ -91,10 +152,11 @@ function hideArticleForm() {
     });
 }
 
-// Очистка полей формы (Пункт 1 и 2 задания)
+/**
+ * Доработка ДЗ6: используем form.reset() для очистки формы
+ */
 function resetForm() {
-    inputTitle.value = '';
-    inputText.value = '';
+    addArticleForm.reset();
 }
 
 // Показать форму по кнопке "Создать статью"
@@ -102,14 +164,14 @@ btnCreateArticle.addEventListener('click', function () {
     showArticleForm();
 });
 
-// Обработчик кнопки "Отмена" (Пункт 2 задания)
-btnCancelArticle.addEventListener('click', () => {
+// Обработчик кнопки "Отмена"
+btnCancelArticle.addEventListener('click', function () {
     resetForm();
     hideArticleForm();
 });
 
 // ===========================
-// ДОБАВЛЕНИЕ СТАТЬИ (Пункт 1 задания)
+// ФОРМАТИРОВАНИЕ ДАТ
 // ===========================
 
 /**
@@ -137,31 +199,66 @@ function formatDatetime(date) {
     return date.toISOString().split('T')[0];
 }
 
+// ===========================
+// РЕНДЕРИНГ КАРТОЧЕК
+// ===========================
+
 /**
- * Добавляет новый пост на страницу, используя template
- * @param {string} title — заголовок статьи
- * @param {string} dateStr — дата в читаемом формате
- * @param {string} datetime — дата для атрибута datetime
+ * Создаёт карточку статьи из шаблона и добавляет на страницу
+ * @param {Object} article — объект { id, title, text, date, datetime }
  */
-function addPost(title, dateStr, datetime) {
-    // Клонируем содержимое шаблона
+function renderCard(article) {
     const clone = blogCardTemplate.content.cloneNode(true);
 
+    // Устанавливаем data-id для идентификации при удалении
+    const card = clone.querySelector('.blog-card');
+    card.dataset.id = article.id;
+
     // Заполняем данными
-    clone.querySelector('h4').textContent = title;
+    clone.querySelector('h4').textContent = article.title;
+
+    // Текст статьи (показываем в featured-карточке)
+    const textEl = clone.querySelector('.blog-card-text');
+    if (textEl) {
+        textEl.textContent = article.text;
+    }
+
     const timeEl = clone.querySelector('time');
-    timeEl.textContent = dateStr;
-    timeEl.setAttribute('datetime', datetime);
+    timeEl.textContent = article.date;
+    timeEl.setAttribute('datetime', article.datetime);
 
     // Добавляем карточку в сетку
-    blogCards.prepend(clone);
-    updateStats();
+    blogCards.appendChild(clone);
 }
 
-// Добавление поста по кнопке "Добавить" (с mock-данными)
-btnAddArticle.addEventListener('click', () => {
-    const title = inputTitle.value.trim();
-    const text = inputText.value.trim();
+/**
+ * Отрисовывает все статьи из массива
+ * @param {Array} articles — массив объектов статей
+ */
+function renderAllArticles(articles) {
+    // Очищаем контейнер
+    blogCards.innerHTML = '';
+
+    // Рендерим каждую статью
+    articles.forEach(function (article) {
+        renderCard(article);
+    });
+
+    // Обновляем состояние пустой страницы
+    updateEmptyState();
+}
+
+// ===========================
+// ДОБАВЛЕНИЕ СТАТЬИ (через форму)
+// ===========================
+
+// Доработка ДЗ5: используем submit событие формы
+addArticleForm.addEventListener('submit', function (event) {
+    // Предотвращаем стандартную отправку формы
+    event.preventDefault();
+
+    const title = document.getElementById('article-title').value.trim();
+    const text = document.getElementById('article-text').value.trim();
 
     if (title === '' || text === '') {
         alert('Пожалуйста, введите заголовок и текст статьи');
@@ -169,29 +266,60 @@ btnAddArticle.addEventListener('click', () => {
     }
 
     const now = new Date();
-    addPost(title, formatDate(now), formatDatetime(now));
 
-    // Сброс и скрытие (Пункт 1)
+    // Создаём объект статьи
+    const article = {
+        id: Date.now().toString(),
+        title: title,
+        text: text,
+        date: formatDate(now),
+        datetime: formatDatetime(now)
+    };
+
+    // Сохраняем в localStorage (ДЗ 7)
+    addArticleToStorage(article);
+
+    // Рендерим карточку на странице
+    renderCard(article);
+
+    // Обновляем состояние
+    updateEmptyState();
     resetForm();
     hideArticleForm();
 });
 
 // ===========================
-// УДАЛЕНИЕ СТАТЬИ (Пункт 3 задания)
+// УДАЛЕНИЕ СТАТЬИ
 // ===========================
 
-// Используем делегирование: вешаем один обработчик на весь контейнер
-blogCards.addEventListener('click', (event) => {
-    // Проверяем, нажали ли мы на кнопку удаления (крестик)
+// Делегирование: один обработчик на весь контейнер
+blogCards.addEventListener('click', function (event) {
     if (event.target.classList.contains('btn-delete')) {
-        // Находим ближайшую карточку к этому крестику
         const card = event.target.closest('.blog-card');
-        
+
         if (card) {
-            // Удаляем карточку из DOM
+            const id = card.dataset.id;
+
+            // Удаляем из localStorage
+            removeArticleFromStorage(id);
+
+            // Удаляем из DOM
             card.remove();
-            // Обновляем статистику после удаления
+
+            // Обновляем состояние
+            updateEmptyState();
             updateStats();
         }
     }
 });
+
+// ===========================
+// ИНИЦИАЛИЗАЦИЯ: загрузка статей из localStorage (ДЗ 7)
+// ===========================
+
+function init() {
+    const articles = getArticlesFromStorage();
+    renderAllArticles(articles);
+}
+
+init();
