@@ -40,6 +40,13 @@
                     <!-- Карточки загружаются из localStorage через JS -->
                 </div>
 
+                <!-- Лоадер для имитации загрузки (ДЗ 8) -->
+                <div class="loader" id="loader">
+                    <span class="loader-dot"></span>
+                    <span class="loader-dot"></span>
+                    <span class="loader-dot"></span>
+                </div>
+
                 <!-- Заглушка "Нет статей" (отображается когда статей нет) -->
                 <p class="blog-empty" id="blog-empty">Нет статей</p>
 
@@ -54,20 +61,22 @@
             <div class="container">
                 <h2>Добавить статью</h2>
                 <form class="add-article-form" id="add-article-form">
-                    <div class="form-group">
-                        <label for="article-title">Заголовок</label>
-                        <input type="text" id="article-title" name="title" placeholder="Заголовок статьи" required>
-                    </div>
+                    <fieldset id="form-fieldset">
+                        <div class="form-group">
+                            <label for="article-title">Заголовок</label>
+                            <input type="text" id="article-title" name="title" placeholder="Заголовок статьи" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="article-text">Текст статьи</label>
-                        <textarea id="article-text" name="text" rows="5" placeholder="Текст статьи" required></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label for="article-text">Текст статьи</label>
+                            <textarea id="article-text" name="text" rows="5" placeholder="Текст статьи" required></textarea>
+                        </div>
 
-                    <div class="form-buttons">
-                        <button type="submit" class="btn-add" id="btn-add-article">Добавить</button>
-                        <button type="button" class="btn-cancel" id="btn-cancel-article">Отмена</button>
-                    </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-add" id="btn-add-article">Добавить</button>
+                            <button type="button" class="btn-cancel" id="btn-cancel-article">Отмена</button>
+                        </div>
+                    </fieldset>
                 </form>
             </div>
         </section>
